@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/style.css">
@@ -35,14 +35,12 @@
     </nav>
 
     <div id="content" class="container" style="display: none;">
-        <a href="/ultraman" class="btn btn-back">Back to selection</a>
-        
         <div class="row">
-            <div class="col-lg-6 ultraman-profile-image">
+            <div class="col-lg-6 col-md-12 ultraman-profile-image">
                 <img src="https://ultradex-characters.b-cdn.net/{{.ultraman.Slug}}.png" class="img-fluid">
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-12">
                 <div class="ultraman-profile-name">{{.ultraman.Name}}</div>
                 <p class="ultraman-profile-description">{{.ultraman.Description}}</p>
 
