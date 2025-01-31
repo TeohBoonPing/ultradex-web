@@ -13,8 +13,8 @@
 </head>
 <body>
     <div id="loading" class="loading-container">
-        <video id="loading-video" autoplay muted>
-            <source src="/assets/rises/{{.ultraman.Slug}}.mp4" type="video/mp4">
+        <video id="loading-video" autoplay muted preload="auto">
+            <source src="https://ultradex-rises.b-cdn.net/{{.ultraman.Slug}}.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -23,7 +23,7 @@
         <div class="container d-flex justify-content-center align-items-center">
             <div class="d-flex gap-3">
                 <a href="https://www.linkedin.com/in/boonpingteoh/" target="_blank"><img src="/assets/logos/linkedin.svg" /></a>
-                <a href="https://github.com/TeohBoonPing/pokedex" target="_blank"><img src="/assets/logos/github.svg" /></a>
+                <a href="https://github.com/TeohBoonPing/ultradex-web" target="_blank"><img src="/assets/logos/github.svg" /></a>
             </div>
         </div>
     </nav>
@@ -48,7 +48,7 @@
 
             <div class="col-lg-6 col-md-12 col-12 order-lg-2 order-1">
                 <div class="character-full">
-                    <img src="/assets/characters/{{.ultraman.Slug}}.png" class="img-fluid">
+                    <img src="https://ultradex-characters.b-cdn.net/{{.ultraman.Slug}}.png" class="img-fluid">
                 </div>
             </div>
         </div>

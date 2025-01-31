@@ -31,7 +31,7 @@ func setUltramanController(router *gin.Engine, db *gorm.DB) {
 	ultramanGroup := router.Group("/ultraman")
 	{
 		// Route for listing all ultramans
-		ultramanGroup.GET("/", func(c *gin.Context) {
+		ultramanGroup.GET("", func(c *gin.Context) {
 			ultramanList, err := ultraman.GetUltramanList(c)
 			if err != nil {
 				c.JSON(500, gin.H{"error": err.Error()})
@@ -54,4 +54,8 @@ func setUltramanController(router *gin.Engine, db *gorm.DB) {
 			})
 		})
 	}
+
+	router.GET("/", func(c *gin.Context) {
+		c.Redirect(302, "/ultraman")
+	})
 }

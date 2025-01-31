@@ -17,7 +17,7 @@
             <div class="container d-flex justify-content-center align-items-center">
                 <div class="d-flex gap-3">
                     <a href="https://www.linkedin.com/in/boonpingteoh/" target="_blank"><img src="/assets/logos/linkedin.svg" /></a>
-                    <a href="https://github.com/TeohBoonPing/pokedex" target="_blank"><img src="/assets/logos/github.svg" /></a>
+                    <a href="https://github.com/TeohBoonPing/ultradex-web" target="_blank"><img src="/assets/logos/github.svg" /></a>
                 </div>
             </div>
         </nav>
@@ -27,7 +27,7 @@
                 {{range .ultramanList}}
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="character">
-                        <img src="/assets/characters/{{.Slug}}.png" class="img-fluid" onclick="window.location.href='/ultraman/details/{{.Slug}}'">
+                        <img src="https://ultradex-characters.b-cdn.net/{{.Slug}}.png" class="img-fluid" onclick="window.location.href='/ultraman/details/{{.Slug}}'">
                         <div class="character-name-overlay">{{.Name}}</div>
                     </div>
                 </div>

@@ -1,23 +1,12 @@
 package migrations
 
 import (
-	"ultradex/database"
+	"ultradex/model"
 
-	"github.com/go-gormigrate/gormigrate/v2"
+	"gorm.io/gorm"
 )
 
-var _migrations = []*gormigrate.Migration{}
+func Migrate(db *gorm.DB) {
 
-func Migrate() error {
-	db, err := database.NewPostgres()
-	if err != nil {
-		return err
-	}
-
-	m := gormigrate.New(db, gormigrate.DefaultOptions, _migrations)
-	if err := m.Migrate(); err != nil {
-		return err
-	}
-
-	return nil
+	_ = db.AutoMigrate(&model.Ultraman{})
 }

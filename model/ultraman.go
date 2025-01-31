@@ -1,8 +1,6 @@
 package model
 
 import (
-	"ultradex/database"
-
 	"gorm.io/gorm"
 )
 
@@ -19,15 +17,4 @@ type Ultraman struct {
 	Race                *string  `json:"race" gorm:"type:varchar(100);null"`
 	FirstAppearanceYear string   `json:"first_appearance_year" gorm:"type:char(4);not null"`
 	Description         *string  `json:"description" gorm:"type:text;null"`
-}
-
-func FindAll() ([]Ultraman, error) {
-	db, err := database.NewPostgres()
-	if err != nil {
-		return nil, err
-	}
-
-	var ultraman []Ultraman
-	result := db.Find(&ultraman)
-	return ultraman, result.Error
 }

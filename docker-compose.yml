@@ -1,4 +1,14 @@
 services:
+  ultradex_web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -9,8 +19,8 @@ services:
       POSTGRES_DB: ultradex_web
     ports:
       - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-volumes:
-  postgres-data:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ultradex_web"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
