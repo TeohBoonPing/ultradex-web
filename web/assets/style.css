@@ -175,7 +175,7 @@ video {
 }
 
 .ultraman-profile-image > img{
-    max-height: 80vh;
+    max-height: 75vh;
 }
 
 .ultraman-profile-name {
@@ -187,7 +187,8 @@ video {
     text-transform: uppercase;
     overflow: hidden;
     margin-bottom: 25px;
-    overflow-wrap: break-word;
+    word-wrap: break-word;
+    width: 100% !important;
 }
 
 .ultraman-profile-description {
@@ -213,7 +214,7 @@ video {
 /* smartphones, iPhone, portrait 480x320 phones */ 
 @media (max-width:767px)  { 
     .ultraman-profile-name {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .ultraman-profile-description, .ultraman-profile-table{
