@@ -33,7 +33,7 @@ func (u *ultramanService) FindBySlug(slug string) (*model.Ultraman, error) {
 // FindAllUltramans returns the list of all ultramans
 func (u *ultramanService) FindAllUltramans() (*[]model.Ultraman, error) {
 	var ultramans []model.Ultraman
-	result := u.db.Order("first_appearance_year DESC").Find(&ultramans)
+	result := u.db.Order("id DESC").Find(&ultramans)
 	if result.Error != nil {
 		return nil, result.Error
 	}
