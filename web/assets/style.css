@@ -89,10 +89,10 @@ video {
     font-size: 20px;
     color: white;
     text-align: center;
-    white-space: nowrap;
+    word-wrap: break-word;
     overflow: hidden;
-    text-overflow: ellipsis;
     text-transform: uppercase;
+    width: 100%;
 }
 
 .character-full {
