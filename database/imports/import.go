@@ -7,10 +7,13 @@ import (
 	"ultradex/utils"
 
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 func ImportUltraman(db *gorm.DB) error {
+	if err := db.Exec("TRUNCATE TABLE ultramen RESTART IDENTITY").Error; err != nil {
+		return fmt.Errorf("failed to truncate table: %w", err)
+	}
+
 	records, columnIndex, err := utils.ReadCsvFile("database/csv/ultraman.csv")
 	if err != nil {
 		return fmt.Errorf("failed to read csv file: %w", err)
@@ -51,13 +54,8 @@ func ImportUltraman(db *gorm.DB) error {
 			Description:         utils.StringToPtr(record[columnIndex["description"]]),
 		}
 
-		if err := db.Clauses(clause.OnConflict{
-			Columns: []clause.Column{{Name: "slug"}},
-			DoUpdates: clause.AssignmentColumns([]string{
-				"name", "era", "human_host", "height", "weight", "age", "home_world", "race", "first_appearance_year", "description",
-			}),
-		}).Create(&entry).Error; err != nil {
-			return fmt.Errorf("failed to upsert ultraman record: %w", err)
+		if err := db.Create(&entry).Error; err != nil {
+			return fmt.Errorf("failed to insert ultraman records: %w", err)
 		}
 	}
 
