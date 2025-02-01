@@ -185,9 +185,9 @@ video {
     font-size: 50px;
     font-weight: bold;
     text-transform: uppercase;
-    white-space: nowrap;
     overflow: hidden;
     margin-bottom: 25px;
+    overflow-wrap: break-word;
 }
 
 .ultraman-profile-description {
