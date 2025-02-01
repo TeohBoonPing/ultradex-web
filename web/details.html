@@ -57,23 +57,23 @@
                         <tbody>
                             <tr>
                                 <td scope="row">Era</td>
-                                <td>{{.ultraman.Era}}</td>
+                                <td>{{if .ultraman.Era}}{{.ultraman.Era}}{{else}}Unknown{{end}}</td>
                             </tr>
                             <tr>
                                 <td scope="row">Human Host</td>
-                                <td>{{.ultraman.HumanHost}}</td>
+                                <td>{{if .ultraman.HumanHost}}{{.ultraman.HumanHost}}{{else}}Unknown{{end}}</td>
                             </tr>
                             <tr>
                                 <td scope="row">First Appearance Year</td>
-                                <td>{{.ultraman.FirstAppearanceYear}}</td>
+                                <td>{{if .ultraman.FirstAppearanceYear}}{{.ultraman.FirstAppearanceYear}}{{else}}Unknown{{end}}</td>
                             </tr>
                             <tr>
                                 <td scope="row">Height</td>
-                                <td>{{.ultraman.Height}}</td>
+                                <td>{{if .ultraman.Height}}{{.ultraman.Height}}{{else}}Unknown{{end}}</td>
                             </tr>
                             <tr>
                                 <td scope="row">Weight</td>
-                                <td>{{.ultraman.Weight}}</td>
+                                <td>{{if .ultraman.Weight}}{{.ultraman.Weight}}{{else}}Unknown{{end}}</td>
                             </tr>
                             <tr>
                                 <td scope="row">Age</td>
