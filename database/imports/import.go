@@ -37,7 +37,23 @@ func ImportUltraman(db *gorm.DB) error {
 		age, ageErr := utils.StringToUintPtr(record[columnIndex["age"]])
 		if ageErr != nil {
 			fmt.Println(record[columnIndex["age"]])
-			return fmt.Errorf("invalid age value: %d", age)
+			return fmt.Errorf("invalid age value: %w", ageErr)
+		}
+
+		// Parse the new stat fields
+		strength, strErr := utils.StringToUintPtr(record[columnIndex["strength"]])
+		if strErr != nil {
+			return fmt.Errorf("invalid strength value: %w", strErr)
+		}
+
+		agility, agiErr := utils.StringToUintPtr(record[columnIndex["agility"]])
+		if agiErr != nil {
+			return fmt.Errorf("invalid agility value: %w", agiErr)
+		}
+
+		energy, eneErr := utils.StringToUintPtr(record[columnIndex["energy"]])
+		if eneErr != nil {
+			return fmt.Errorf("invalid energy value: %w", eneErr)
 		}
 
 		entry := model.Ultraman{
@@ -52,6 +68,11 @@ func ImportUltraman(db *gorm.DB) error {
 			Race:                utils.StringToPtr(record[columnIndex["race"]]),
 			FirstAppearanceYear: record[columnIndex["first_appearance_year"]],
 			Description:         utils.StringToPtr(record[columnIndex["description"]]),
+			Finisher:            utils.StringToPtr(record[columnIndex["finisher"]]),
+			Color:               utils.StringToPtr(record[columnIndex["color"]]),
+			Strength:            strength,
+			Agility:             agility,
+			Energy:              energy,
 		}
 
 		if err := db.Create(&entry).Error; err != nil {

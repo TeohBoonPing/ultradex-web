@@ -17,4 +17,10 @@ type Ultraman struct {
 	Race                *string  `json:"race" gorm:"type:varchar(100);null"`
 	FirstAppearanceYear string   `json:"first_appearance_year" gorm:"type:char(4);not null"`
 	Description         *string  `json:"description" gorm:"type:text;null"`
+
+	Finisher *string `json:"finisher" gorm:"type:varchar(255);null"`
+	Color    *string `json:"color" gorm:"type:varchar(255);null"`
+	Strength *uint   `json:"strength" gorm:"type:int;null"`
+	Agility  *uint   `json:"agility" gorm:"type:int;null"`
+	Energy   *uint   `json:"energy" gorm:"type:int;null"`
 }
