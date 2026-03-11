@@ -6,11 +6,11 @@ This project is inspired by my love for **Ultraman**, and I noticed that there a
 
 ## Demo
 <div style="display: flex; flex-direction: row;" align="center">
-  <img src="web/assets/demo/ultradex-mobile.gif" width="350" />
+  <img src="web/assets/demo/ultradex-mobile-demo.gif" width="350" />
 </div>
 <br><br><br>
 <div style="display: flex; flex-direction: row;" align="center">
-  <img src="web/assets/demo/ultradex-tablet.gif" width="700" />
+  <img src="web/assets/demo/ultradex-tablet-demo.gif" width="700" />
 </div>
 
 ## Tech Used
