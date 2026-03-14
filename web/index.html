@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultradex</title>
+    <link rel="icon" type="image/x-icon" href="assets/logos/fav.ico">
+
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -319,40 +321,45 @@
             const originDisplay = ultra.origin || 'Unknown';
 
             dom.detailModal.innerHTML = `
+                <div id="video-overlay" class="fixed inset-0 z-[60] bg-space-900 flex items-center justify-center cursor-pointer transition-opacity duration-700 ease-in-out" onclick="revealDetails()">
+                    <div id="skip-hint" class="absolute top-6 left-6 z-40 text-[10px] font-grotesk text-white/50 uppercase tracking-widest animate-pulse pointer-events-none">
+                        Tap to skip rise
+                    </div>
+
+                    <div id="video-spinner" class="absolute z-30 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-300">
+                        <div class="w-12 h-12 border-2 border-white/10 border-t-cyan-400 rounded-full animate-spin"></div>
+                        <div class="mt-4 text-[10px] font-grotesk text-cyan-400/80 uppercase tracking-[0.2em] animate-pulse">
+                            Loading...
+                        </div>
+                    </div>
+
+                    <video 
+                        id="rise-video"
+                        src="${ultra.video}" 
+                        autoplay 
+                        playsinline 
+                        class="absolute inset-0 w-full h-full object-cover z-10"
+                        onended="revealDetails()"
+                        onerror="revealDetails()"
+                        onwaiting="document.getElementById('video-spinner')?.classList.remove('opacity-0')"
+                        onplaying="document.getElementById('video-spinner')?.classList.add('opacity-0')"
+                        oncanplay="document.getElementById('video-spinner')?.classList.add('opacity-0')"
+                    ></video>
+
+                    <button id="mute-btn" onclick="toggleVideoMute(event)" class="absolute bottom-6 left-6 z-40 bg-space-900/60 backdrop-blur-xl p-3 rounded-full text-slate-300 hover:text-white border border-white/10 transition-all hover:bg-white/10 group">
+                        <svg id="mute-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                        </svg>
+                    </button>
+                </div>
+
                 <div class="w-full h-full sm:h-[85vh] sm:max-w-6xl glass-minimal sm:rounded-[2rem] flex flex-col md:flex-row shadow-2xl relative overflow-hidden" onclick="event.stopPropagation()">
                     
-                    <!-- Minimal Close Button -->
                     <button onclick="closeModal()" class="absolute top-6 right-6 z-50 bg-white/5 backdrop-blur-xl p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
 
-                    <!-- FULL-WIDTH RISE VIDEO OVERLAY -->
-                    <div id="video-overlay" class="absolute inset-0 z-40 bg-space-900 flex items-center justify-center cursor-pointer transition-opacity duration-700 ease-in-out" onclick="revealDetails()">
-                        <div id="skip-hint" class="absolute top-6 left-6 z-20 text-[10px] font-grotesk text-white/50 uppercase tracking-widest animate-pulse pointer-events-none">
-                            Tap to skip rise
-                        </div>
-
-                        <video 
-                            id="rise-video"
-                            src="${ultra.video}" 
-                            autoplay 
-                            playsinline 
-                            class="absolute inset-0 w-full h-full object-cover z-10"
-                            onended="revealDetails()"
-                            onerror="revealDetails()"
-                        ></video>
-
-                        <!-- Sound toggle button -->
-                        <button id="mute-btn" onclick="toggleVideoMute(event)" class="absolute bottom-6 left-6 z-20 bg-space-900/60 backdrop-blur-xl p-3 rounded-full text-slate-300 hover:text-white border border-white/10 transition-all hover:bg-white/10 group">
-                            <svg id="mute-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Left: Static Character Image (Revealed after video) -->
                     <div class="w-full md:w-1/2 relative h-[40%] md:h-full bg-space-900/50 flex items-end justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/5">
-                        <!-- Huge Atmospheric Glow -->
                         <div class="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br ${ultra.color} blur-[120px] opacity-25 z-0"></div>
                         
                         <img 
@@ -363,7 +370,6 @@
                         />
                     </div>
 
-                    <!-- Right: Clean Minimalist Data (Hidden Initially) -->
                     <div id="modal-details-panel" class="w-full md:w-1/2 p-6 sm:p-10 md:p-14 relative z-20 flex flex-col bg-space-900/80 overflow-y-auto opacity-0 translate-y-4 transition-all duration-1000 ease-out">
                         
                         <div class="mb-8">
@@ -373,14 +379,12 @@
                             <h1 class="font-grotesk font-medium text-4xl sm:text-5xl lg:text-5xl text-white tracking-tight leading-tight">${ultra.name}</h1>
                         </div>
 
-                        <!-- Description -->
                         <div class="mb-8 border-l-2 border-white/20 pl-4">
                             <p class="text-sm text-slate-300 font-outfit leading-relaxed overflow-y-auto max-h-32 pr-2 desc-scroll">
                                 ${ultra.description || "Data restricted. No further information available."}
                             </p>
                         </div>
 
-                        <!-- Minimal Data Grid -->
                         <div class="grid grid-cols-2 gap-6 mb-10">
                             ${createMinimalDataBox("Height", heightDisplay)}
                             ${createMinimalDataBox("Weight", weightDisplay)}
@@ -388,7 +392,6 @@
                             ${createMinimalDataBox("Origin", originDisplay)}
                         </div>
 
-                        <!-- Minimal Stats -->
                         <div class="mb-10">
                             <h3 class="font-outfit text-sm font-light text-slate-500 tracking-[0.1em] mb-4">COMBAT PARAMETERS</h3>
                             <div class="space-y-5">
@@ -398,7 +401,6 @@
                             </div>
                         </div>
 
-                        <!-- Finisher -->
                         <div class="mt-auto pt-6 border-t border-white/5">
                             <h4 class="font-outfit text-xs font-light text-slate-500 tracking-[0.1em] mb-2">SIGNATURE FINISHER</h4>
                             <p class="text-xl font-grotesk font-light text-white tracking-wide">${ultra.finisher}</p>
