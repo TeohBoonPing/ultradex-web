@@ -27,35 +27,21 @@ func NewRouter(db *gorm.DB) error {
 func setUltramanController(router *gin.Engine, db *gorm.DB) {
 	ultraman := controller.NewUltramanController(db)
 
-	// Create a group for ultraman-related routes
-	ultramanGroup := router.Group("/ultraman")
-	{
-		// Route for listing all ultramans
-		ultramanGroup.GET("", func(c *gin.Context) {
-			ultramanList, err := ultraman.GetUltramanList(c)
-			if err != nil {
-				c.JSON(500, gin.H{"error": err.Error()})
-				return
-			}
-			c.HTML(200, "index.html", gin.H{
-				"ultramanList": ultramanList,
-			})
-		})
-
-		// Route for viewing details of a specific ultraman by slug
-		ultramanGroup.GET("/details/:slug", func(c *gin.Context) {
-			ultraman, err := ultraman.GetUltraman(c)
-			if err != nil {
-				c.JSON(500, gin.H{"error": err.Error()})
-				return
-			}
-			c.HTML(200, "details.html", gin.H{
-				"ultraman": ultraman,
-			})
+	handler := func(c *gin.Context) {
+		ultramanList, err := ultraman.ListUltramans(c)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+		c.HTML(200, "index.html", gin.H{
+			"ultramanList": ultramanList,
 		})
 	}
 
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(302, "/ultraman")
-	})
+	router.GET("/", handler)
+
+	ultramanGroup := router.Group("/ultraman")
+	{
+		ultramanGroup.GET("", handler)
+	}
 }
