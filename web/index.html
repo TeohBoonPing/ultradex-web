@@ -518,10 +518,12 @@
 
         // --- EVENT LISTENERS ---
         function setupEventListeners() {
+            let searchTimeout;
+
             dom.searchInput.addEventListener('input', (e) => {
                 state.search = e.target.value;
                 
-                // Toggle clear button visibility
+                // 1. We still want to show/hide the "X" button immediately so the UI feels snappy
                 const clearBtn = document.getElementById('clear-search-btn');
                 if (state.search.length > 0) {
                     clearBtn.classList.remove('hidden');
@@ -529,7 +531,11 @@
                     clearBtn.classList.add('hidden');
                 }
                 
-                renderGrid();
+                clearTimeout(searchTimeout);
+                
+                searchTimeout = setTimeout(() => {
+                    renderGrid();
+                }, 300); 
             });
 
             dom.detailModal.addEventListener('click', closeModal);
