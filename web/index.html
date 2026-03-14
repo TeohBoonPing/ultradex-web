@@ -321,7 +321,7 @@
             const originDisplay = ultra.origin || 'Unknown';
 
             dom.detailModal.innerHTML = `
-                <div id="video-overlay" class="fixed inset-0 z-[60] bg-space-900 flex items-center justify-center cursor-pointer transition-opacity duration-700 ease-in-out" onclick="revealDetails()">
+                <div id="video-overlay" class="fixed inset-0 z-[60] bg-space-900 flex items-center justify-center cursor-pointer transition-opacity duration-700 ease-in-out" onclick="event.stopPropagation(); revealDetails()">
                     <div id="skip-hint" class="absolute top-6 left-6 z-40 text-[10px] font-grotesk text-white/50 uppercase tracking-widest animate-pulse pointer-events-none">
                         Tap to skip rise
                     </div>
@@ -338,7 +338,7 @@
                         src="${ultra.video}" 
                         autoplay 
                         playsinline 
-                        class="absolute inset-0 w-full h-full object-cover z-10"
+                        class="absolute inset-0 w-full h-full object-contain md:object-cover z-10"
                         onended="revealDetails()"
                         onerror="revealDetails()"
                         onwaiting="document.getElementById('video-spinner')?.classList.remove('opacity-0')"
@@ -359,7 +359,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                     </button>
 
-                    <div class="w-full md:w-1/2 relative h-[40%] md:h-full bg-space-900/50 flex items-end justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/5">
+                    <div class="w-full md:w-1/2 relative aspect-video md:aspect-auto md:h-full bg-space-900/50 flex items-end justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/5 shrink-0">
                         <div class="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br ${ultra.color} blur-[120px] opacity-25 z-0"></div>
                         
                         <img 
